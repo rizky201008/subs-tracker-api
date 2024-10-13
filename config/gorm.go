@@ -20,7 +20,7 @@ func InitDb() {
 	if err != nil {
 		panic("failed to connect databases" + err.Error())
 	}
-	err = db.AutoMigrate(&domain.Setting{}, &domain.Transaction{})
+	err = db.AutoMigrate(&domain.Setting{}, &domain.Subscription{})
 	if err != nil {
 		panic(err.Error())
 	}
