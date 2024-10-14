@@ -10,6 +10,8 @@ services:
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_DATABASE}
+    volumes:
+      - ./mysql:/var/lib/mysql
 
   pma:
     image: phpmyadmin:latest
