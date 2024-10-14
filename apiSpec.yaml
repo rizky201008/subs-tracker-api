@@ -1,0 +1,300 @@
+openapi: 3.0.3
+info:
+  title: Subscription Tracker API specification
+  description: Subscription Tracker API specification
+  version: 1.0.0
+  contact:
+    name: Yogik
+    email: rizkyden06@gmail.com
+    url: https://vixiloc.my.id
+servers:
+  - url: 'http://localhost:3003/api/v1'
+    description: "V1 Api endpoints"
+paths:
+  /setting:
+    get:
+      tags:
+        - "Setting API"
+      summary: "Get user setting"
+      description: "Get all user setting"
+      responses:
+        "200":
+          description: "Success get setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+                  - $ref: "#/components/schemas/Setting"
+    post:
+      tags:
+        - "Setting API"
+      summary: "Create new setting"
+      description: "Every new user registered in App must create new setting first"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUpdateSetting"
+      responses:
+        200:
+          description: "Success create new setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+                  - $ref: "#/components/schemas/Setting"
+    put:
+      tags:
+        - "Setting API"
+      summary: "Update setting"
+      description: "Update user setting"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUpdateSetting"
+
+      responses:
+        200:
+          description: "Success update setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+                  - $ref: "#/components/schemas/Setting"
+  /subscriptions:
+    get:
+      tags:
+        - "Subscriptions API"
+      summary: "Get all subscriptions"
+      description: "Show all user subscriptions"
+      responses:
+        "200":
+          description: "Success get setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+                  - $ref: "#/components/schemas/Subscriptions"
+    post:
+      tags:
+        - "Subscriptions API"
+      summary: "Create subscription"
+      description: "Add new subscription"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUpdateSubscription"
+      responses:
+        "200":
+          description: "Success get setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+                  - $ref: "#/components/schemas/Subscription"
+
+  /subscriptions/{id}:
+    put:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "Subscription ID"
+      tags:
+        - "Subscriptions API"
+      summary: "Update subscription"
+      description: "Update subscription"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUpdateSubscription"
+      responses:
+        "200":
+          description: "Success get setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+                  - $ref: "#/components/schemas/Subscription"
+
+    delete:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: "Subscription ID"
+      tags:
+        - "Subscriptions API"
+      summary: "Delete subscription"
+      description: "Delete subscription"
+      responses:
+        "200":
+          description: "Success get setting"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/ResponseTemplate"
+
+components:
+  schemas:
+    ResponseTemplate:
+      description: "Default response object"
+      type: object
+      properties:
+        status_code:
+          type: integer
+        message:
+          type: string
+
+    Setting:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            currency:
+              type: string
+              example: "USD"
+            user_id:
+              type: string
+              example: "123456"
+
+    CreateUpdateSetting:
+      description: "Create or update setting object"
+      type: object
+      properties:
+        currency:
+          type: string
+          example: "USD"
+          maxLength: 5
+      required:
+        - currency
+
+    Subscriptions:
+      description: "Array of subscription object"
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              platform_name:
+                type: string
+                description: "Name of app subscription"
+                example: "Netflix"
+              amount:
+                type: number
+                description: "Amount of app subscription cost"
+              due_date:
+                type: string
+                description: "Date of payment started"
+                example: "10/10/2010"
+              reminder:
+                type: boolean
+                description: "True if user is using the reminder feature"
+              cycle:
+                type: string
+                enum:
+                  - W
+                  - M
+                  - Y
+                description: >
+                  Billing Cycle:
+                   * `W` - Weekly
+                   * `M` - Monthly
+                   * `Y` - Yearly
+
+    Subscription:
+      description: "Object of subscription"
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            platform_name:
+              type: string
+              description: "Name of app subscription"
+              example: "Netflix"
+            amount:
+              type: number
+              description: "Amount of app subscription cost"
+            due_date:
+              type: string
+              description: "Date of payment started"
+              example: "10/10/2010"
+            reminder:
+              type: boolean
+              description: "True if user is using the reminder feature"
+            cycle:
+              type: string
+              enum:
+                - W
+                - M
+                - Y
+              description: >
+                Billing Cycle:
+                 * `W` - Weekly
+                 * `M` - Monthly
+                 * `Y` - Yearly
+
+    CreateUpdateSubscription:
+      description: "Object of subscription"
+      type: object
+      properties:
+        platform_name:
+          type: string
+          description: "Name of app subscription"
+          example: "Netflix"
+        amount:
+          type: number
+          description: "Amount of app subscription cost"
+        due_date:
+          type: string
+          description: "Date of payment started"
+          example: "10/10/2010"
+        reminder:
+          type: boolean
+          description: "True if user is using the reminder feature"
+        cycle:
+          type: string
+          enum:
+            - W
+            - M
+            - Y
+          description: >
+            Billing Cycle:
+             * `W` - Weekly
+             * `M` - Monthly
+             * `Y` - Yearly
+      required:
+        - amount
+        - cycle
+        - due_date
+        - platform_name
+        - reminder
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Token-ID
+
+security:
+  - ApiKeyAuth: [ ]
