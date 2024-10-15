@@ -1,9 +1,6 @@
 package domain
 
-import "gorm.io/gorm"
-
 type Setting struct {
-	gorm.Model
-	UserID   string `gorm:"column:user_id;type:text"`
+	UserID   string `gorm:"column:user_id;type:varchar(200);not null;unique;"`
 	Currency string `gorm:"column:currency;type:varchar(5);default:USD;"`
 }
