@@ -18,7 +18,7 @@ func NewSettingRepository() SettingRepository {
 }
 
 func (SettingRepositoryImpl) UpdateSetting(setting domain.Setting, db *gorm.DB) (domain.Setting, error) {
-	err := db.First(&setting, setting.ID).Updates(&setting).Error
+	err := db.Where("user_id = ?", setting.UserID).Updates(&setting).Error
 	return setting, err
 }
 
