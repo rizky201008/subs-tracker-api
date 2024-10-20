@@ -2,6 +2,7 @@ package domain
 
 import (
 	"gorm.io/gorm"
+	"time"
 )
 
 type BillingCycle string
@@ -49,7 +50,7 @@ type Subscription struct {
 	PlatformName string       `gorm:"column:platform_name;type:varchar(255)"`
 	UserId       string       `gorm:"type:text;column:user_id;not null"`
 	Amount       float64      `gorm:"column:amount;not null"`
-	DueDate      string       `gorm:"column:due_date;type:date;not null"`
+	DueDate      time.Time    `gorm:"column:due_date;type:date;not null"`
 	Reminder     bool         `gorm:"column:reminder;type:boolean;default:false"`
 	Cycle        BillingCycle `gorm:"column:cycle;type:enum('W','M','Y')"`
 	ColorHex     string       `gorm:"column:color_hex;type:varchar(6)"`
