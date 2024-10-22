@@ -9,6 +9,9 @@ import (
 func init() {
 	config.InitViper()
 	config.InitDb()
+	config.InitSettingRepository()
+	config.InitSettingService()
+	config.InitSettingController()
 }
 
 func main() {
