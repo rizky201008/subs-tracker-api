@@ -17,4 +17,5 @@ func MainRouter(app *fiber.App) {
 			Message:    "Sukses",
 		})
 	})
+	settingRoute(api)
 }
