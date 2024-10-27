@@ -10,7 +10,9 @@ func init() {
 	config.InitViper()
 	config.InitDb()
 	config.InitSettingRepository()
+	config.InitSubscriptionRepository()
 	config.InitSettingService()
+	config.InitSubscriptionService()
 	config.InitSettingController()
 }
 
