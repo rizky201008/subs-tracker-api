@@ -11,3 +11,18 @@ func SettingToResponse(data domain.Setting) web.SettingResponse {
 		Currency: data.Currency,
 	}
 }
+
+func SubscriptionToResponses(data []domain.Subscription) []web.SubscriptionResponse {
+	var result []web.SubscriptionResponse
+	for _, value := range data {
+		result = append(result, web.SubscriptionResponse{
+			PlatformName: value.PlatformName,
+			Amount:       value.Amount,
+			DueDate:      value.DueDate,
+			Reminder:     value.Reminder,
+			Cycle:        value.Cycle.Value(),
+			ColorHex:     value.ColorHex,
+		})
+	}
+	return result
+}
