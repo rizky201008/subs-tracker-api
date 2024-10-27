@@ -26,3 +26,14 @@ func SubscriptionToResponses(data []domain.Subscription) []web.SubscriptionRespo
 	}
 	return result
 }
+
+func SubscriptionToResponse(data domain.Subscription) web.SubscriptionResponse {
+	return web.SubscriptionResponse{
+		PlatformName: data.PlatformName,
+		Amount:       data.Amount,
+		DueDate:      data.DueDate,
+		Reminder:     data.Reminder,
+		Cycle:        data.Cycle.Value(),
+		ColorHex:     data.ColorHex,
+	}
+}
