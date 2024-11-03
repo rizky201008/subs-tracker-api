@@ -18,4 +18,5 @@ func MainRouter(app *fiber.App) {
 		})
 	})
 	settingRoute(api)
+	subscriptionRoute(api)
 }
