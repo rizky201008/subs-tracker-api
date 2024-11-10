@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/rizky201008/subscription-tracker-api/config"
 	"github.com/rizky201008/subscription-tracker-api/models/web"
 )
 
@@ -10,6 +11,7 @@ func MainRouter(app *fiber.App) {
 		return c.JSON(fiber.Map{})
 	})
 	api := app.Group("/api")
+	api.Use(config.Middleware.RequireAuth)
 	api.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(web.Response{
 			StatusCode: web.RcSuccess,
