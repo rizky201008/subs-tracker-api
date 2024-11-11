@@ -19,25 +19,25 @@ type SubscriptionControllerImpl struct {
 
 func (controller SubscriptionControllerImpl) GetSubscriptions(ctx *fiber.Ctx) error {
 	var response = web.NewResponse()
-	response.Data = controller.GetSubscriptions(ctx)
+	response.Data = controller.SubscriptionService.GetAll(ctx)
 	return ctx.JSON(response)
 }
 
 func (controller SubscriptionControllerImpl) GetSubscription(ctx *fiber.Ctx) error {
 	var response = web.NewResponse()
-	response.Data = controller.GetSubscription(ctx)
+	response.Data = controller.SubscriptionService.GetById(ctx)
 	return ctx.JSON(response)
 }
 
 func (controller SubscriptionControllerImpl) CreateSubscription(ctx *fiber.Ctx) error {
 	var response = web.NewResponse()
-	response.Data = controller.CreateSubscription(ctx)
+	response.Data = controller.SubscriptionService.Create(ctx)
 	return ctx.JSON(response)
 }
 
 func (controller SubscriptionControllerImpl) UpdateSubscription(ctx *fiber.Ctx) error {
 	var response = web.NewResponse()
-	response.Data = controller.UpdateSubscription(ctx)
+	response.Data = controller.SubscriptionService.Update(ctx)
 	return ctx.JSON(response)
 }
 
