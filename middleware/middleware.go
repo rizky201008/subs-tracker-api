@@ -13,13 +13,13 @@ type Middleware interface {
 	RequireAuth(c *fiber.Ctx) error
 }
 
-type MiddlewareImpl struct {
+type Impl struct {
 	Viper    *viper.Viper
 	DB       *gorm.DB
 	Firebase *firebase.App
 }
 
-func (middleware MiddlewareImpl) RequireAuth(ctx *fiber.Ctx) error {
+func (middleware Impl) RequireAuth(ctx *fiber.Ctx) error {
 	tokenString := ctx.Get("X-Access-Token")
 	if tokenString == "" {
 		panic(exception.UnauthorizedError{
@@ -39,6 +39,6 @@ func (middleware MiddlewareImpl) RequireAuth(ctx *fiber.Ctx) error {
 	return ctx.Next()
 }
 
-func NewMiddleware(viper *viper.Viper, db *gorm.DB) Middleware {
-	return MiddlewareImpl{Viper: viper, DB: db}
+func NewMiddleware(viper *viper.Viper, db *gorm.DB, fireBase *firebase.App) Middleware {
+	return Impl{Viper: viper, DB: db, Firebase: fireBase}
 }
