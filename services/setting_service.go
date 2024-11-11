@@ -28,10 +28,10 @@ func NewSettingService(db *gorm.DB, settingRepo repositories.SettingRepository) 
 }
 
 func (service SettingServiceImpl) GetSetting(ctx *fiber.Ctx) web.SettingResponse {
-	userId := ctx.GetRespHeader("userId")
+	uid := ctx.GetRespHeader("uid")
 	var response web.SettingResponse
 
-	setting, err := service.SettingRepo.GetSetting(userId, service.Db)
+	setting, err := service.SettingRepo.GetSetting(uid, service.Db)
 	if err != nil {
 		panic(err)
 	}
@@ -45,10 +45,10 @@ func (service SettingServiceImpl) UpdateSetting(ctx *fiber.Ctx) web.SettingRespo
 	if err != nil {
 		panic(err)
 	}
-	userId := ctx.GetRespHeader("userId")
+	uid := ctx.GetRespHeader("uid")
 	var response web.SettingResponse
 
-	setting, err := service.SettingRepo.GetSetting(userId, service.Db)
+	setting, err := service.SettingRepo.GetSetting(uid, service.Db)
 	if err != nil {
 		panic(err)
 	}
@@ -64,14 +64,14 @@ func (service SettingServiceImpl) CreateSetting(ctx *fiber.Ctx) web.SettingRespo
 	if err != nil {
 		panic(err)
 	}
-	userId := ctx.GetRespHeader("userId")
+	uid := ctx.GetRespHeader("uid")
 	var response web.SettingResponse
 	setting := domain.Setting{
-		UserID:   userId,
+		UserID:   uid,
 		Currency: p.Currency,
 	}
 
-	getSetting, err := service.SettingRepo.GetSetting(userId, service.Db)
+	getSetting, err := service.SettingRepo.GetSetting(uid, service.Db)
 	if err == nil {
 		response = helper.SettingToResponse(getSetting)
 	}

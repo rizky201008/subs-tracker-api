@@ -23,7 +23,8 @@ type SubscriptionServiceImpl struct {
 
 func (service SubscriptionServiceImpl) GetAll(ctx *fiber.Ctx) []web.SubscriptionResponse {
 	var response []web.SubscriptionResponse
-	result, err := service.SubscriptionRepo.GetAll(service.Db)
+	uid := ctx.GetRespHeader("uid")
+	result, err := service.SubscriptionRepo.GetAll(uid, service.Db)
 	if err != nil {
 		panic(err)
 	}
@@ -49,11 +50,11 @@ func (service SubscriptionServiceImpl) Create(ctx *fiber.Ctx) web.SubscriptionRe
 	}
 	var response web.SubscriptionResponse
 
-	userId := ctx.GetRespHeader("userId")
+	uid := ctx.GetRespHeader("uid")
 	data := domain.Subscription{
 		Amount:       p.Amount,
 		DueDate:      p.DueDate,
-		UserId:       userId,
+		UserId:       uid,
 		ColorHex:     p.ColorHex,
 		Cycle:        domain.StringToBilling(p.Cycle),
 		PlatformName: p.PlatformName,
