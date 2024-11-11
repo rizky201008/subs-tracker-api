@@ -10,7 +10,7 @@ var Firebase *firebase.App
 
 func InitFirebase() {
 	// [START initialize_app_default_golang]
-	opt := option.WithCredentialsFile("../substracker-65db9-firebase-adminsdk-na16n-ff2b63130f.json")
+	opt := option.WithCredentialsFile("./substracker-65db9-firebase-adminsdk-na16n-ff2b63130f.json")
 	app, err := firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
 		panic(err)

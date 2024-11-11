@@ -17,6 +17,7 @@ func init() {
 	config.InitSubscriptionService()
 	config.InitSettingController()
 	config.InitFirebase()
+	config.InitMiddleware()
 }
 
 func main() {
